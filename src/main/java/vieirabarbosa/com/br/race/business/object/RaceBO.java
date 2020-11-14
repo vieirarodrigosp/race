@@ -16,16 +16,13 @@ public class RaceBO {
 	private static WinnerBO winnerBO;
 	public static void getWinner() throws IOException {
 		List<LapDTO> race = ReadFileBO.getReading(Constant.path + "corrida.log");
-		Comparator<LapDTO> lapComparator = Comparator
-				.comparing(LapDTO::getNumber).reversed()
-				.thenComparing(LapDTO::getTime);
-		race.sort(lapComparator);
-		List<WinnerDTO> winners = winnerBO.getWinner(race);
-//		winnerBO.getWinner(getOrderingPositions(race));
-		winners.stream().map((WinnerDTO winner)->{
-			System.out.println(winner.getPosition() + winner.getLap().getCode() + " - "
+		getOrderingPositions(race);
+		winnerBO.getWinner(race).stream()
+			.map((WinnerDTO winner)->{
+				System.out.println(winner.getPosition() + winner.getLap().getCode() + " - "
 					+ winner.getLap().getPilot() + " - Qtd de voltas completadas: "
-					+ winner.getLap().getNumber() + " - tempo todal de prova: " + winner.getTotalTime() + " mm:ss.SSS");
+					+ winner.getLap().getNumber() + " - tempo total de prova: "
+					+ winner.getTotalTime() + " mm:ss.SSS");
 			return winner;})
 		.collect(Collectors.toList());
 	}

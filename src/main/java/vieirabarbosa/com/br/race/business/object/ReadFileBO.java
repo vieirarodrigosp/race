@@ -15,26 +15,16 @@ import vieirabarbosa.com.br.race.convert.Converts;
 public class ReadFileBO {
 	public static List<LapDTO> getReading(String file) throws IOException {
 		List<LapDTO> laps;
+		
 		try (Stream fileLines = Files.lines(Paths.get(file), StandardCharsets.UTF_8)) {
-			laps = (List<LapDTO>) fileLines
-					.skip(1)
-					.map((Object line)->{ try {
-						return Converts.convertLineToLapDTO(correctingFile(line));
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					return fileLines;})
+			laps = (List<LapDTO>) fileLines.skip(1).map((Object line)->{
+						try {
+							return Converts.convertLineToLapDTO(correctingFile(line));
+						} catch (ParseException e) { e.printStackTrace(); }
+						return fileLines;})
 					.collect(Collectors.toList());
-//			return (List<LapDTO>) fileLines
-//					.skip(1)
-//					.map((Object line)->{ try {
-//						return convertLineToLapDTO(correctingFile(line));
-//					} catch (ParseException e) {
-//						e.printStackTrace();
-//						return null;
-//					}})
-//					.collect(Collectors.toList());
 		}
+		
 		return laps;
 	}
 	
