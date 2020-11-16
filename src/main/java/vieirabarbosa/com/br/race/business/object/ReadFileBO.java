@@ -5,16 +5,21 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.stereotype.Component;
+
 import vieirabarbosa.com.br.race.DTO.LapDTO;
 import vieirabarbosa.com.br.race.convert.Converts;
 
+@Component
 public class ReadFileBO {
 	public static List<LapDTO> getReading(String file) throws IOException {
-		List<LapDTO> laps;
+
+		List<LapDTO> laps = new ArrayList<>();
 		
 		try (Stream fileLines = Files.lines(Paths.get(file), StandardCharsets.UTF_8)) {
 			laps = (List<LapDTO>) fileLines.skip(1).map((Object line)->{

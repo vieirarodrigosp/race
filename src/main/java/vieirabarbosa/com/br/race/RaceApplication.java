@@ -9,10 +9,9 @@ import vieirabarbosa.com.br.race.business.object.RaceBO;
 
 @SpringBootApplication
 public class RaceApplication {
-//	@Autowired
-//	private static WinnerBO winnerBO;
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(RaceApplication.class, args);
-		RaceBO.getWinner();
+		RaceBO raceBO = new RaceBO();
+		raceBO.getWinner("corrida.log");
 	}
 }

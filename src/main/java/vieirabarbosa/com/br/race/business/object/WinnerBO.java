@@ -8,10 +8,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
 import vieirabarbosa.com.br.race.DTO.LapDTO;
 import vieirabarbosa.com.br.race.DTO.WinnerDTO;
 import vieirabarbosa.com.br.race.convert.Converts;
 
+@Component
 public class WinnerBO {
 	public static List<WinnerDTO> getWinner(List<LapDTO> race) {
 		return raceToLaps(race, getMaxNumberLaps(race));
